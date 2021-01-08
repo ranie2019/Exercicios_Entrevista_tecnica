@@ -1,17 +1,25 @@
 from collections import deque
-from itertools import chain, cycle
 
 
 def less_to_great_significant_digit(s):
-    return map(int, reversed(s))
+    result = []
+    s = list()
+    while s:
+        result.append((int(s.pop())))
+    return result
+
 
 
 def zip_longest(n, n2, fillvalue):
     n = list(n)
     n2 = list(n2)
     minor, greater = sorted([n, n2], key=len)
-    minor_with_fillvalues = chain(minor, cycle([fillvalue]))
-    return zip(greater, minor_with_fillvalues)
+    missing = len(greater) - len(minor)
+    minor.extend([fillvalue]*missing)
+    result = []
+    for i, d in enumerate(greater):
+        result.append((d, minor[i]))
+    return result
 
 def binary_sum(n, n2):
     """n  e n2 nao sao numero negativos binarios
